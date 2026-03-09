@@ -1,0 +1,28 @@
+{
+  "profiles": [
+    {
+      "id": "general-coding",
+      "title": "General Coding",
+      "description": "Balanced software development workspace for typical engineering tasks.",
+      "path": "profiles/general-coding"
+    },
+    {
+      "id": "streamlit-studio",
+      "title": "Streamlit Studio",
+      "description": "Opinionated Streamlit workspace for dashboards and internal tools.",
+      "path": "profiles/streamlit-studio"
+    },
+    {
+      "id": "data-apps",
+      "title": "Data Apps",
+      "description": "Python-first workspace for uploads, charts, filters, and exports.",
+      "path": "profiles/data-apps"
+    },
+    {
+      "id": "research-assistant",
+      "title": "Research Assistant",
+      "description": "Workspace for structured research, synthesis, and evaluation loops.",
+      "path": "profiles/research-assistant"
+    }
+  ]
+}
