@@ -13,6 +13,7 @@ Each profile contains:
 
 - an `AGENTS.md`
 - one or more Codex skills under `.codex/skills/`
+- a `getting-started/` page for the Coder dashboard
 - optional starter files under `starter/`
 - a `profile.json` manifest
 
