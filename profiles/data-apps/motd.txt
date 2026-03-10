@@ -1,0 +1,13 @@
+Welcome to Coder
+
+Profile: Data Apps
+Workspace: {{WORKSPACE_NAME}}
+Files: ~/workspace
+Apps: Getting Started, My Apps, File Browser, VS Code
+
+What to do here:
+- Put source files in ~/workspace/uploads
+- Save cleaned data and exports in ~/workspace/outputs
+- Keep notes in ~/workspace/notes
+- Begin with `codex` for a fresh session
+- Return to your latest session with `codex resume --last`

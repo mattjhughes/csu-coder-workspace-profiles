@@ -1,0 +1,13 @@
+Welcome to Coder
+
+Profile: General Coding
+Workspace: {{WORKSPACE_NAME}}
+Files: ~/workspace
+Apps: Getting Started, File Browser, VS Code
+
+What to do here:
+- Put documents and assets in ~/workspace
+- Open code in VS Code
+- Use File Browser for simple uploads and downloads
+- Begin with `codex` for a fresh session
+- Return to your latest session with `codex resume --last`

@@ -1,0 +1,13 @@
+Welcome to Coder
+
+Profile: Research Assistant
+Workspace: {{WORKSPACE_NAME}}
+Files: ~/workspace
+Apps: Getting Started, File Browser, VS Code
+
+What to do here:
+- Put source material in ~/workspace/reference
+- Draft notes in ~/workspace/notes
+- Save outputs in ~/workspace/outputs
+- Begin with `codex` for a fresh session
+- Return to your latest session with `codex resume --last`
