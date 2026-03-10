@@ -8,6 +8,8 @@ This profile is for general software development in Coder.
 - Prefer stable, boring solutions over clever ones.
 - Preserve existing project conventions.
 - Keep changes small and verify them locally when possible.
+- Treat `/home/coder/workspace` as the default place for user-supplied files and generated outputs.
+- Use `/home/coder/workspace/uploads` for incoming files and `/home/coder/workspace/outputs` for generated artifacts unless the repo already defines a better convention.
 
 ### What To Build
 
