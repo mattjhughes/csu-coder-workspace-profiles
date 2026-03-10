@@ -5,42 +5,426 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Getting Started: Streamlit Studio</title>
     <style>
-      :root { --bg:#f7faf7; --ink:#132a13; --muted:#47634d; --card:#ffffff; --border:#d7e5d8; }
-      *{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui,sans-serif;background:linear-gradient(180deg,#edf9f0 0%,#fff 45%);color:var(--ink)}
-      .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 56px}.hero{background:linear-gradient(135deg,#1b4332,#40916c);color:#fff;border-radius:28px;padding:28px;box-shadow:0 18px 50px rgba(27,67,50,.18)}
-      .hero p{margin-top:12px;max-width:760px;line-height:1.5;color:rgba(255,255,255,.9)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:0 10px 30px rgba(19,42,19,.06)}h1,h2,h3,p{margin:0}.card p,.list li{color:var(--muted);line-height:1.5}.section{margin-top:22px}.list{margin:12px 0 0 18px;padding:0}code{background:#ecfdf3;border-radius:8px;padding:2px 6px}
+      :root {
+        --bg: #07111f;
+        --bg-alt: #0d1a2f;
+        --card: rgba(12, 24, 44, 0.9);
+        --card-soft: rgba(18, 34, 58, 0.82);
+        --ink: #f4f7fb;
+        --muted: #b5c5dc;
+        --line: rgba(146, 169, 204, 0.22);
+        --accent: #7cf2b2;
+        --accent-2: #55c7ff;
+        --accent-3: #ffd35f;
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(85, 199, 255, 0.16), transparent 28%),
+          radial-gradient(circle at top right, rgba(124, 242, 178, 0.12), transparent 24%),
+          linear-gradient(180deg, #07111f 0%, #091321 45%, #0b1626 100%);
+      }
+
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 20px 64px;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgba(85, 199, 255, 0.18), rgba(124, 242, 178, 0.08)),
+          linear-gradient(135deg, #0d1d36, #13274a 60%, #0b1b33);
+        border: 1px solid rgba(124, 242, 178, 0.22);
+        border-radius: 30px;
+        padding: 34px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: auto -10% -45% auto;
+        width: 360px;
+        height: 360px;
+        border-radius: 999px;
+        background: radial-gradient(circle, rgba(124, 242, 178, 0.18), transparent 65%);
+        pointer-events: none;
+      }
+
+      h1, h2, h3, p { margin: 0; }
+
+      h1 {
+        max-width: 800px;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      .hero p {
+        max-width: 760px;
+        margin-top: 14px;
+        font-size: 1.05rem;
+        line-height: 1.65;
+        color: rgba(244, 247, 251, 0.9);
+      }
+
+      .hero-grid,
+      .grid,
+      .two-up {
+        display: grid;
+        gap: 18px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.5fr 1fr;
+        margin-top: 28px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+
+      .two-up {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+
+      .card,
+      .step,
+      .tip,
+      .image-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .card,
+      .tip,
+      .image-card {
+        padding: 22px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.84rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 0 18px rgba(124, 242, 178, 0.45);
+      }
+
+      .hero-list,
+      .checklist,
+      .bullets {
+        margin: 14px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .hero-list strong,
+      .bullets strong,
+      .callout strong {
+        color: var(--ink);
+      }
+
+      .section {
+        margin-top: 28px;
+      }
+
+      .section-title {
+        margin-bottom: 16px;
+      }
+
+      .section-title h2 {
+        font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+        letter-spacing: -0.03em;
+      }
+
+      .section-title p {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .step-list {
+        display: grid;
+        gap: 16px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 18px;
+        padding: 22px;
+      }
+
+      .step-no {
+        width: 52px;
+        height: 52px;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, rgba(85, 199, 255, 0.2), rgba(124, 242, 178, 0.2));
+        border: 1px solid rgba(124, 242, 178, 0.28);
+        color: var(--ink);
+        font-size: 1.25rem;
+        font-weight: 800;
+      }
+
+      .step h3,
+      .card h3,
+      .tip h3 {
+        font-size: 1.08rem;
+      }
+
+      .step p,
+      .card p,
+      .tip p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .callout {
+        margin-top: 12px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(85, 199, 255, 0.1);
+        border: 1px solid rgba(85, 199, 255, 0.18);
+        color: #d7ebff;
+        line-height: 1.6;
+      }
+
+      code {
+        background: rgba(85, 199, 255, 0.1);
+        border: 1px solid rgba(85, 199, 255, 0.18);
+        border-radius: 10px;
+        padding: 2px 8px;
+        color: #dff4ff;
+        font-size: 0.96em;
+      }
+
+      .prompt-box {
+        margin-top: 14px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(255, 211, 95, 0.08);
+        border: 1px solid rgba(255, 211, 95, 0.18);
+        color: #f9f1cb;
+        line-height: 1.7;
+        white-space: pre-wrap;
+      }
+
+      .image-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        margin-top: 16px;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .mini-card {
+        background: var(--card-soft);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+      }
+
+      .mini-card h3 {
+        font-size: 1rem;
+      }
+
+      .mini-card p {
+        margin-top: 8px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 760px) {
+        .wrap { padding-left: 16px; padding-right: 16px; }
+        .hero { padding: 24px; border-radius: 24px; }
+        .hero-grid { grid-template-columns: 1fr; }
+        .step { grid-template-columns: 1fr; }
+      }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <div class="hero">
-        <h1>Getting Started: Streamlit Studio</h1>
-        <p>This workspace is designed for dashboards and internal data apps. Use My Apps to open the user-facing interface, VS Code to edit the code, File Browser for a clean user files area, and the terminal to run <code>codex</code>.</p>
-      </div>
-      <div class="grid section">
-        <div class="card"><h2>My Apps</h2><p>Open the Streamlit app studio and test the pages users will actually see.</p></div>
-        <div class="card"><h2>VS Code</h2><p>Edit app files, dependencies, and starter pages without leaving the browser.</p></div>
-        <div class="card"><h2>File Browser</h2><p>Opens directly to <code>/home/coder/workspace</code> so uploads and outputs stay separate from tool and app files.</p></div>
-      </div>
-      <div class="grid section">
-        <div class="card">
-          <h3>Best for</h3>
-          <ul class="list">
-            <li>KPI dashboards</li>
-            <li>CSV and Excel explorers</li>
-            <li>reporting portals</li>
-            <li>review and approval workflows</li>
+      <section class="hero">
+        <div class="eyebrow">Welcome</div>
+        <h1>You can build a Streamlit app here even if you have never used Coder or Codex before.</h1>
+        <p>
+          This workspace is set up so you can upload files, describe what you want in plain English, and let Codex build the first version for you.
+          You do not need to know where everything lives yet. Start with the steps below and use the page as your map.
+        </p>
+
+        <div class="hero-grid">
+          <div class="card">
+            <h2>Start here</h2>
+            <ul class="hero-list">
+              <li><strong>Use File Browser</strong> to bring files into the workspace.</li>
+              <li><strong>Open Terminal</strong> and run <code>codex</code>.</li>
+              <li><strong>Describe the app</strong> you want in normal language.</li>
+              <li><strong>Open My Apps</strong> to see the result users will actually use.</li>
+              <li><strong>Open VS Code</strong> if you want to inspect or edit files directly.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h2>Two commands to remember</h2>
+            <div class="callout"><strong>Start a new Codex session:</strong><br><code>codex</code></div>
+            <div class="callout"><strong>Return to the most recent Codex session:</strong><br><code>codex resume --last</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">
+          <h2>Follow These 4 Steps</h2>
+          <p>If you are new to the workspace, do these in order the first time.</p>
+        </div>
+
+        <div class="step-list">
+          <article class="step">
+            <div class="step-no">1</div>
+            <div>
+              <h3>Get your files into the workspace</h3>
+              <p>
+                Click <strong>File Browser</strong>. Upload raw files into <code>~/workspace/uploads</code>.
+                Keep notes in <code>~/workspace/notes</code>, put reference material in <code>~/workspace/reference</code>,
+                and save finished exports in <code>~/workspace/outputs</code>.
+              </p>
+              <div class="callout">
+                If you are not sure where a file should go, put it in <code>uploads/</code> first. That is the safest default.
+              </div>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-no">2</div>
+            <div>
+              <h3>Start Codex from the terminal</h3>
+              <p>
+                Click <strong>Terminal</strong>, then type <code>codex</code>. That opens an interactive Codex session inside the workspace.
+                If you were already working and want to continue, use <code>codex resume --last</code>.
+              </p>
+              <div class="callout">
+                You do not need to write code first. Just tell Codex what the app should do, who it is for, what files to use, and what the most important screens or actions are.
+              </div>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-no">3</div>
+            <div>
+              <h3>Describe the app in plain language</h3>
+              <p>
+                Be specific about the audience, the data source, and the actions users need to take.
+                The more concrete the prompt, the better the first version will be.
+              </p>
+              <div class="prompt-box">Build a Streamlit dashboard for the admissions team. Use the CSV files in ~/workspace/uploads. The dashboard should let users filter by campus and term, show top-level totals, and export filtered results. Make the design clean and easy for non-technical staff to use.</div>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-no">4</div>
+            <div>
+              <h3>Review the result in My Apps</h3>
+              <p>
+                Click <strong>My Apps</strong> to open the user-facing Streamlit app. If something is unclear or missing,
+                go back to the terminal and tell Codex exactly what to change. Use <strong>VS Code</strong> when you want to inspect files directly.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section two-up">
+        <article class="tip">
+          <h3>What each workspace button is for</h3>
+          <p>
+            These are the buttons most people will use every day in this profile:
+          </p>
+          <ul class="bullets">
+            <li><strong>Getting Started:</strong> this page and the orientation materials.</li>
+            <li><strong>My Apps:</strong> the Streamlit app studio and user-facing output.</li>
+            <li><strong>File Browser:</strong> the clean file area for uploads, notes, references, and outputs.</li>
+            <li><strong>VS Code:</strong> the editor for files, folders, and project code.</li>
+            <li><strong>Terminal:</strong> where you run Codex and shell commands.</li>
           </ul>
+        </article>
+
+        <article class="tip">
+          <h3>Where the code goes</h3>
+          <p>
+            In this Streamlit profile, app code usually lives in <code>~/my-apps</code>. Uploaded files and user-managed documents live in <code>~/workspace</code>.
+            That separation helps keep app code away from raw uploads and exported deliverables.
+          </p>
+          <div class="mini-grid">
+            <div class="mini-card">
+              <h3>~/workspace/uploads</h3>
+              <p>Raw CSV, Excel, PDF, image, and other input files.</p>
+            </div>
+            <div class="mini-card">
+              <h3>~/workspace/outputs</h3>
+              <p>Exports, generated files, finished reports, and deliverables.</p>
+            </div>
+            <div class="mini-card">
+              <h3>~/workspace/notes</h3>
+              <p>Working notes, drafts, summaries, and decisions.</p>
+            </div>
+            <div class="mini-card">
+              <h3>~/my-apps</h3>
+              <p>The Streamlit app studio and the code Codex builds.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section image-card">
+        <div class="section-title">
+          <h2>Visual Map Of The Workspace</h2>
+          <p>Use this annotated dashboard view to understand where each main button lives.</p>
         </div>
-        <div class="card">
-          <h3>Good first prompt</h3>
-          <p>“Build a Streamlit app for me. The audience is &lt;who&gt;, the data source is &lt;what&gt;, and users need to &lt;top actions&gt;.”</p>
+        <img src="./assets/workspace-dashboard-annotated.png" alt="Annotated Coder workspace dashboard showing Getting Started, My Apps, File Browser, VS Code, and Terminal.">
+      </section>
+
+      <section class="section image-card">
+        <div class="section-title">
+          <h2>Button-By-Button Guide</h2>
+          <p>This reference repeats each button with a short explanation you can scan quickly.</p>
         </div>
-        <div class="card">
-          <h3>Where files go</h3>
-          <p>Put raw files in <code>uploads/</code>, finished exports in <code>outputs/</code>, and notes in <code>notes/</code>. The app code stays in <code>my-apps/</code>.</p>
-        </div>
-      </div>
+        <img src="./assets/workspace-buttons-guide.png" alt="Guide showing each workspace button and a short description of what it is used for.">
+      </section>
     </div>
   </body>
-  </html>
+</html>
